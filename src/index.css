@@ -43,12 +43,6 @@ header .site-logo {
   font-size: 25px;
 }
 
-a.active-link {
-  font-weight: bold;
-  text-decoration: underline;
-  color: #161616;
-}
-
 header a {
   text-decoration: none;
   color: #4d4d4d;
@@ -59,6 +53,12 @@ header a {
 header a:hover {
   color: #161616;
   text-decoration: underline;
+}
+
+nav a.active-link {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #161616;
 }
 
 main {
