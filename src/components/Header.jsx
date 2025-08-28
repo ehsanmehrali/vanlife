@@ -2,12 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Header() {
-  const activeStyle = {
-    fontWeight: "bold",
-    textDecoration: "underline",
-    color: "#161616",
-  };
-  const activeNav = ({ isActive }) => (isActive ? activeStyle : null);
+  const activeNav = ({ isActive }) => (isActive ? "active-link" : null);
 
   return (
     <header>
@@ -15,13 +10,13 @@ export default function Header() {
         #VanLife
       </NavLink>
       <nav>
-        <NavLink to="host" style={activeNav}>
+        <NavLink to="host" className={activeNav}>
           Host
         </NavLink>
-        <NavLink to="/about" style={activeNav}>
+        <NavLink to="/about" className={activeNav}>
           About
         </NavLink>
-        <NavLink to="/vans" style={activeNav}>
+        <NavLink to="/vans" className={activeNav}>
           Vans
         </NavLink>
       </nav>
