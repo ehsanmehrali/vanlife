@@ -13,6 +13,9 @@ export default function HostLayout() {
         <NavLink to="/host/income" className={activeNav}>
           Income
         </NavLink>
+        <NavLink to="/host/vans" className={activeNav}>
+          Vans
+        </NavLink>
         <NavLink to="/host/reviews" className={activeNav}>
           Reviews
         </NavLink>
