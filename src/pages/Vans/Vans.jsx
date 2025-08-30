@@ -1,8 +1,26 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 export default function Vans() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [vans, setVans] = React.useState([]);
+
+  const typeFilters = searchParams.getAll("type");
+
+  function toggleMultiValue(key, value) {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      const values = next.getAll(key);
+      const exists = values.includes(value);
+
+      next.delete(key); // clear all existing values
+      const updated = exists
+        ? values.filter((v) => v !== value)
+        : [...values, value];
+      updated.forEach((v) => next.append(key, v));
+      return next;
+    });
+  }
 
   React.useEffect(() => {
     fetch("/api/vans")
@@ -10,7 +28,21 @@ export default function Vans() {
       .then((data) => setVans(data.vans));
   }, []);
 
-  const vanElements = vans.map((van) => (
+  function clearAllFilters() {
+    setSearchParams((prev) => {
+      const next = new URLSearchParams(prev);
+      next.delete("type");
+      return next;
+    });
+  }
+
+  let displayed = vans;
+
+  if (typeFilters.length) {
+    displayed = vans.filter((v) => typeFilters.includes(v.type));
+  }
+
+  const vanElements = displayed.map((van) => (
     <div key={van.id} className="van-tile">
       <Link to={`/vans/${van.id}`}>
         <img src={van.imageUrl} />
@@ -29,6 +61,24 @@ export default function Vans() {
   return (
     <div className="van-list-container">
       <h1>Explore our van options</h1>
+      <div className="van-list-filter-buttons">
+        {["simple", "rugged", "luxury"].map((type) => (
+          <button
+            key={type}
+            onClick={() => toggleMultiValue("type", type)}
+            className={`van-type ${type} ${
+              typeFilters.includes(type) ? "selected" : ""
+            }`}
+          >
+            {type[0].toUpperCase() + type.slice(1)}
+          </button>
+        ))}
+        {typeFilters.length > 0 && (
+          <button className="van-type clear-filters" onClick={clearAllFilters}>
+            Clear all filters
+          </button>
+        )}
+      </div>
       <div className="van-list">{vanElements}</div>
     </div>
   );
