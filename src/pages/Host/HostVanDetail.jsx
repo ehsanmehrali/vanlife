@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link, NavLink, Outlet } from "react-router-dom";
+import { useParams, NavLink, Link, Outlet } from "react-router-dom";
 
 export default function HostVanDetail() {
   const params = useParams();
@@ -43,7 +43,7 @@ export default function HostVanDetail() {
             Photos
           </NavLink>
         </nav>
-        <Outlet />
+        <Outlet context={currentVan} />
       </div>
     </section>
   );
