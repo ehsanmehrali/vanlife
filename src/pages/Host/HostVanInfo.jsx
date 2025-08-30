@@ -7,7 +7,7 @@ export default function HostVanInfo() {
   return (
     <section className="host-van-detail-info">
       <h4>
-        Name: <span>{currentVan.nam}</span>
+        Name: <span>{currentVan.name}</span>
       </h4>
       <h4>
         Category: <span>{currentVan.type}</span>
@@ -16,7 +16,7 @@ export default function HostVanInfo() {
         Description: <span>{currentVan.description}</span>
       </h4>
       <h4>
-        Visibility: <span>Publich</span>
+        Visibility: <span>Public</span>
       </h4>
     </section>
   );
